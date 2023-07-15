@@ -19,3 +19,13 @@ export const findNewAPI = () => {
         url: '/home/new'
     })
 }
+
+/**
+ * 获取人气推荐
+ * @returns {*}
+ */
+export const findHotApi = () => {
+    return httpInstance({
+        url: '/home/hot'
+    })
+}
