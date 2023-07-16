@@ -29,3 +29,14 @@ export const findHotApi = () => {
         url: '/home/hot'
     })
 }
+
+
+/**
+ * 获取homeProduct数据
+ * @returns {*}
+ */
+export const getGoodsAPI = () => {
+  return httpInstance({
+      url: '/home/goods'
+  })
+}
