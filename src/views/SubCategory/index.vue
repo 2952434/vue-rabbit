@@ -37,6 +37,7 @@ onMounted(() => getGoodList())
 // tab切换回调
 const tabChange = () => {
   reqData.value.page = 1
+  disable.value = false
   getGoodList()
 }
 
@@ -47,7 +48,7 @@ const disable = ref(false)
 const load = async () => {
   reqData.value.page++
   const res = await getSubCategoryAPI(reqData.value)
-  goodList.value = [...goodList.value,...res.result.items]
+  goodList.value = [...goodList.value, ...res.result.items]
   // 加载完成停止加载
   if (res.result.items.length === 0) {
     disable.value = true
