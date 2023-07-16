@@ -27,3 +27,21 @@ export const getCategoryFilterAPI = (id) => {
         }
     })
 }
+
+/**
+ * 获取导航数据
+ * @param data{{
+ *      categoryId: 1005000 ,
+ *      page: 1,
+ *      pageSize: 20,
+ *      sortField: 'publishTime' | 'orderNum' | 'evaluateNum'
+ *    }}
+ * @returns {*}
+ */
+export function getSubCategoryAPI(data) {
+    return httpInstance({
+        url: '/category/goods/temporary',
+        method: 'POST',
+        data
+    })
+}
