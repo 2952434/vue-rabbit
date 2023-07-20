@@ -51,6 +51,10 @@ watch([elementX, elementY, isOutside], () => {
     top.value = 0
   }
 
+  // 控制大图的显示
+  positionX.value = -left.value * 2
+  positionY.value = -top.value * 2
+
 })
 
 // 图片列表
@@ -70,7 +74,7 @@ const imageList = [
     <div class="middle" ref="target">
       <img :src="imageList[curIndex]" alt="" />
       <!-- 蒙层小滑块 -->
-      <div class="layer" :style="{ left: `${left}px`, top: `${top}px` }"></div>
+      <div class="layer"  v-show="!isOutside" :style="{ left: `${left}px`, top: `${top}px` }"></div>
     </div>
     <!-- 小图列表 -->
     <ul class="small">
@@ -82,10 +86,10 @@ const imageList = [
     <div class="large" :style="[
       {
         backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside"></div>
   </div>
 </template>
 
