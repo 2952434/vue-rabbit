@@ -1,9 +1,11 @@
 <script setup>
 import {loginAPI} from "@/apis/user";
 import {ref} from "vue";
-import { ElMessage } from 'element-plus'
+import {ElMessage} from 'element-plus'
 import 'element-plus/theme-chalk/el-message.css'
 import {useRouter} from "vue-router";
+import {useUserStore} from "@/stores/user";
+
 
 const userInfo = ref({
   account: '',
@@ -21,12 +23,12 @@ const rules = {
   ],
   agree: [
     {
-      validator: (rule,value,callback) => {
+      validator: (rule, value, callback) => {
         // 自定义校验逻辑
         // 勾选就通过不勾选就不通过
         if (value) {
           callback()
-        }else {
+        } else {
           callback(new Error('请勾选协议'))
         }
       }
@@ -37,15 +39,16 @@ const rules = {
 // 获取form实例做统一校验
 const formRef = ref(null)
 const router = useRouter()
+const userStore = useUserStore()
 const doLogin = () => {
-  const {account,password} = userInfo.value
+  const {account, password} = userInfo.value
   formRef.value.validate(async (valid) => {
     // valid: 所有表单都通过校验才为true
     if (valid) {
       // TODO: login
-      const res = await loginAPI({account,password})
+      await userStore.getUserInfo({account, password})
       // 提醒用户成功
-      ElMessage({type: 'success',message: '登录成功'})
+      ElMessage({type: 'success', message: '登录成功'})
       // 页面跳转
       await router.replace('/')
     }
