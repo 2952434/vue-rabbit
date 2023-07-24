@@ -1,7 +1,9 @@
 <script setup>
-
-
+import {loginAPI} from "@/apis/user";
 import {ref} from "vue";
+import { ElMessage } from 'element-plus'
+import 'element-plus/theme-chalk/el-message.css'
+import {useRouter} from "vue-router";
 
 const userInfo = ref({
   account: '',
@@ -34,15 +36,25 @@ const rules = {
 
 // 获取form实例做统一校验
 const formRef = ref(null)
-
+const router = useRouter()
 const doLogin = () => {
-  formRef.value.validate((valid) => {
+  const {account,password} = userInfo.value
+  formRef.value.validate(async (valid) => {
     // valid: 所有表单都通过校验才为true
     if (valid) {
       // TODO: login
-
+      const res = await loginAPI({account,password})
+      // 提醒用户成功
+      ElMessage({type: 'success',message: '登录成功'})
+      // 页面跳转
+      await router.replace('/')
     }
   })
+
+  // 1．用户名和密码只需要通过简单的配置（看文档的方式–复杂功能通过多个不同组件拆解)
+  // 2．同意协议自定义规则validator:(rule,value, callback)->{}
+  // 3．统一校验通过调用form实例的方法validate -> true
+
 }
 
 </script>
