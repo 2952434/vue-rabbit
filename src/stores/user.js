@@ -11,10 +11,17 @@ export const useUserStore = defineStore('user', () => {
             const res = await loginAPI({account, password})
             userInfo.value = res.result
         }
+
+        // 退出登录函数
+        const logout = () => {
+            userInfo.value = {}
+        }
+
         // 3. 以对象的格式把state和action return
         return {
             userInfo,
-            getUserInfo
+            getUserInfo,
+            logout
         }
     },
     {
