@@ -2,8 +2,9 @@
 
 import {defineStore} from "pinia";
 import {ref} from "vue";
+import {computed} from "vue";
 
-export const useCartStore = defineStore('cart',() => {
+export const useCartStore = defineStore('cart', () => {
     // 1、定义state - cartList
     const cartList = ref([])
     // 2、定义action - addCart
@@ -17,7 +18,7 @@ export const useCartStore = defineStore('cart',() => {
         if (item) {
             // 找到了
             item.count++
-        }else {
+        } else {
             // 没找到
             cartList.value.push(goods)
         }
@@ -25,14 +26,22 @@ export const useCartStore = defineStore('cart',() => {
     const delCart = (skuId) => {
         // 匹配skuId获取下标通过splice函数删除
         const index = cartList.value.findIndex(item => item.skuId === skuId);
-        cartList.value.splice(index,1)
+        cartList.value.splice(index, 1)
     }
+
+    // 计算属性
+    // 1、总的数量 所有项的count之和
+    const allCount = computed(() => cartList.value.reduce((a, c) => a + c.count, 0))
+    // 2、总价 所有项的count*price之和
+    const allPrice = computed(() => cartList.value.reduce((a, c) => a + c.count * c.price, 0))
     return {
         cartList,
+        allCount,
+        allPrice,
         addCart,
         delCart
     }
 
-},{
+}, {
     persist: true
 })
