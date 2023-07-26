@@ -32,13 +32,14 @@ const skuChange = (sku) => {
 const count = ref(1)
 const countChange = (count) => {
   console.log(count)
+  count.value++
 }
 
 // 添加购物车
 const addCart = () => {
 
   if (skuObj.skuId) {
-    console.log(skuObj.skuId)
+    // console.log(skuObj.skuId)
     cartStore.addCart({
       id: goods.value.id,
       name: goods.value.name,
@@ -46,6 +47,7 @@ const addCart = () => {
       price: goods.value.price,
       skuId: skuObj.skuId,
       attrsText: skuObj.specsText,
+      count: count,
       selected: true
     })
   }else {

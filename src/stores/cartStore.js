@@ -13,7 +13,7 @@ export const useCartStore = defineStore('cart',() => {
         // 没有添加过 - 直接push
         // 思路：通过匹配传递过来的商品对象中的skuId能不能在cartList中找到，找到了就添加
         const item = cartList.value.find((item) => goods.skuId === item.skuId)
-        console.log(item)
+        // console.log(item)
         if (item) {
             // 找到了
             item.count++
@@ -22,9 +22,15 @@ export const useCartStore = defineStore('cart',() => {
             cartList.value.push(goods)
         }
     }
+    const delCart = (skuId) => {
+        // 匹配skuId获取下标通过splice函数删除
+        const index = cartList.value.findIndex(item => item.skuId === skuId);
+        cartList.value.splice(index,1)
+    }
     return {
         cartList,
-        addCart
+        addCart,
+        delCart
     }
 
 },{
