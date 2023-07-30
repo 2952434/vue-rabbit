@@ -42,3 +42,16 @@ export const delCartAPI = (ids) => {
         }
     })
 }
+
+/**
+ * 合并购物车列表
+ * @param data
+ * @returns {*}
+ */
+export const mergeCartAPI = (data) => {
+    return httpInstance({
+        url: '/member/cart/merge',
+        method: 'POST',
+        data
+    })
+}
