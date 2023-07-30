@@ -7,15 +7,15 @@ import httpInstance from "@/utils/http";
  * @param count
  * @returns {*}
  */
-export const insertCartAPI = ({skuId,count}) => {
-  return httpInstance({
-      url: '/member/cart',
-      method: 'POST',
-      data: {
-          skuId,
-          count
-      }
-  })
+export const insertCartAPI = ({skuId, count}) => {
+    return httpInstance({
+        url: '/member/cart',
+        method: 'POST',
+        data: {
+            skuId,
+            count
+        }
+    })
 }
 
 /**
@@ -23,7 +23,22 @@ export const insertCartAPI = ({skuId,count}) => {
  * @returns {*}
  */
 export const findNewCartListAPI = () => {
-  return httpInstance({
-      url: '/member/cart'
-  })
+    return httpInstance({
+        url: '/member/cart'
+    })
+}
+
+/**
+ *  删除购物车逻辑
+ * @param ids
+ * @returns {*}
+ */
+export const delCartAPI = (ids) => {
+    return httpInstance({
+        url: 'member/cart',
+        method: 'DELETE',
+        data: {
+            ids
+        }
+    })
 }
